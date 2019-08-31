@@ -12,6 +12,7 @@ pulumi = "^0.17.28"
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
 pylint = "^2.3"
+bandit = "^1.6"
 
 [build-system]
 requires = ["poetry>=0.12"]
