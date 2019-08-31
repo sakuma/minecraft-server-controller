@@ -1,0 +1,14 @@
+[Unit]
+Description=Minecraft Server
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash /home/minecraft/minecraft/boot
+EnvironmentFile=/home/minecraft/minecraft/environments
+WorkingDirectory=/home/minecraft/minecraft
+Restart=always
+User=minecraft
+Group=appmgr
+
+[Install]
+WantedBy=multi-user.target

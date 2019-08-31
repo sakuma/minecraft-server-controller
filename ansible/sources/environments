@@ -1,0 +1,5 @@
+# init size of heap memory
+XMS_SIZE=2G
+
+# max size of heap memory
+XMX_SIZE=2G

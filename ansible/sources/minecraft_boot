@@ -1,0 +1,3 @@
+#!/bin/bash
+
+java -Xms$XMS_SIZE -Xmx$XMX_SIZE -jar $HOME/minecraft/minecraft_server.jar nogui
