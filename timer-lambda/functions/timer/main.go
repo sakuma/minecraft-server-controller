@@ -47,14 +47,29 @@ func stopInstance(instanceID string) (bool, error) {
 }
 
 func isActive(t time.Time) bool {
+	if isHoliday(t) {
+		switch {
+		case t.Hour() < 7:
+			return false
+		case t.Hour() < 23:
+			return true
+		default:
+			return false
+		}
+	}
 	switch {
-	case t.Hour() < 6:
+	case t.Hour() < 15:
 		return false
 	case t.Hour() < 22:
 		return true
 	default:
 		return false
 	}
+}
+
+func isHoliday(t time.Time) bool {
+	// TODO: consider national holiday
+	return t.Weekday() == time.Saturday || t.Weekday() == time.Sunday
 }
 
 //
@@ -67,10 +82,10 @@ func Handling() (string, error) {
 	current := t.In(jst)
 	if isActive(current) {
 		startInstance(instanceID)
-		return "success", nil
+		return "succeded: start instance.", nil
 	}
 	stopInstance(instanceID)
-	return "success", nil
+	return "succeeded: stop instance.", nil
 }
 
 func main() {
