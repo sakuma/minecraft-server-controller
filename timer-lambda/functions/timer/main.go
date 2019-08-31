@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
@@ -60,8 +61,7 @@ func isActive(t time.Time) bool {
 // Handling...
 //
 func Handling() (string, error) {
-	// TODO: Get ENV
-	instanceID := "i-099f282532153947e"
+	instanceID := os.Getenv("INSTANCE_ID")
 	t := time.Now()
 	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 	current := t.In(jst)
