@@ -1,6 +1,9 @@
 package main
 
 import (
+	"time"
+
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
@@ -42,10 +45,34 @@ func stopInstance(instanceID string) (bool, error) {
 	return true, err
 }
 
-func main() {
-	// lambda.Start(greet)
-	// instanceID := "i-099f282532153947e"
+func isActive(t time.Time) bool {
+	switch {
+	case t.Hour() < 6:
+		return false
+	case t.Hour() < 22:
+		return true
+	default:
+		return false
+	}
+}
+
+//
+// Handling...
+//
+func Handling() (string, error) {
+	// TODO: Get ENV
 	instanceID := "i-099f282532153947e"
-	startInstance(instanceID)
-	// stopInstance(instanceID)
+	t := time.Now()
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
+	current := t.In(jst)
+	if isActive(current) {
+		startInstance(instanceID)
+		return "success", nil
+	}
+	stopInstance(instanceID)
+	return "success", nil
+}
+
+func main() {
+	lambda.Start(Handling)
 }
