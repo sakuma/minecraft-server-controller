@@ -1,0 +1,11 @@
+{
+  "name": "minecraft-timer",
+  "description": "",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::768079451331:role/minecraft-timer_lambda_function",
+  "environment": {},
+  "runtime": "golang",
+  "profile": "mine",
+  "region": "ap-northeast-1"
+}
