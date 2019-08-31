@@ -1,15 +1,12 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 )
 
-func startInstance(instanceID string) (string, error) {
+func startInstance(instanceID string) (bool, error) {
 	svc := ec2.New(session.New(&aws.Config{
 		Region: aws.String("ap-northeast-1"),
 	}))
@@ -18,52 +15,31 @@ func startInstance(instanceID string) (string, error) {
 			aws.String(instanceID),
 		},
 	}
-	result, err := svc.StartInstances(input)
+	_, err := svc.StartInstances(input)
 	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			switch aerr.Code() {
-			default:
-				fmt.Println(aerr.Error())
-			}
-		} else {
-			// Print the error, cast err to awserr.Error to get the Code and
-			// Message from an error.
-			fmt.Println(err.Error())
-		}
-		return "info", nil
+		// TODO: error handling
+		// aerr, ok := err.(awserr.Error); ok {
+		return false, err
 	}
-	fmt.Println(result)
-	return "info", nil
+	return true, err
 }
 
-func stopInstance(instanceID string) (string, error) {
-	session, _ := session.NewSession(&aws.Config{
+func stopInstance(instanceID string) (bool, error) {
+	svc := ec2.New(session.New(&aws.Config{
 		Region: aws.String("ap-northeast-1"),
-	})
-	svc := ec2.New(session)
+	}))
 	input := &ec2.StopInstancesInput{
 		InstanceIds: []*string{
 			aws.String(instanceID),
 		},
 	}
-
-	result, err := svc.StopInstances(input)
+	_, err := svc.StopInstances(input)
 	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			switch aerr.Code() {
-			default:
-				fmt.Println(aerr.Error())
-			}
-		} else {
-			// Print the error, cast err to awserr.Error to get the Code and
-			// Message from an error.
-			fmt.Println(err.Error())
-		}
-		return "error", err
+		// TODO: error handling
+		// aerr, ok := err.(awserr.Error); ok {
+		return false, err
 	}
-
-	fmt.Println(result)
-	return "success", nil
+	return true, err
 }
 
 func main() {
