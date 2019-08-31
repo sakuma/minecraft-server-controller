@@ -8,6 +8,7 @@ authors = ["Naohiro Sakuma <nao.bear@gmail.com>"]
 python = "^3.7"
 pulumi_aws = "^0.18.27"
 pulumi = "^0.17.28"
+ansible = "^2.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
