@@ -7,6 +7,10 @@
   become: yes
 
   tasks:
+  - name: set timezone to Asia/Tokyo
+    timezone:
+      name: Asia/Tokyo
+
   - name: Add Group (for systemd)
     group:
       name: appmgr
@@ -49,9 +53,11 @@
 
   - name: systemd to set minecraft server
     systemd:
-      state: started
-      daemon_reload: yes
       name: minecraft_server.service
+      state: restarted
+      daemon_reload: yes
+      enabled: true
+    become: yes
 
   # - name: Systemd setting
   #   template:
