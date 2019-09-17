@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
@@ -47,6 +48,9 @@ func stopInstance(instanceID string) (bool, error) {
 }
 
 func isActive(t time.Time) bool {
+	if isForceRunning() {
+		return true
+	}
 	if isHoliday(t) {
 		switch {
 		case t.Hour() < 7:
@@ -70,6 +74,14 @@ func isActive(t time.Time) bool {
 func isHoliday(t time.Time) bool {
 	// TODO: consider national holiday
 	return t.Weekday() == time.Saturday || t.Weekday() == time.Sunday
+}
+
+func isForceRunning() bool {
+	forceRunning, err := strconv.ParseBool(os.Getenv("FORCE_RUNNING"))
+	if err != nil {
+		println(err)
+	}
+	return forceRunning
 }
 
 //
