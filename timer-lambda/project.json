@@ -4,9 +4,6 @@
   "memory": 128,
   "timeout": 10,
   "role": "arn:aws:iam::768079451331:role/minecraft-timer_lambda_function",
-  "environment": {
-    "INSTANCE_ID": "i-099f282532153947e"
-  },
   "runtime": "golang",
   "profile": "mine",
   "region": "ap-northeast-1",
