@@ -2,3 +2,6 @@
 venv/
 .venv
 timer-lambda/env.json
+
+.nvmrc
+node_modules
