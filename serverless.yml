@@ -13,8 +13,8 @@
 
 service: minecraft-server-controller
 # app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+app: minecraft-server-controller
+org: sakuma
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -23,14 +23,21 @@ frameworkVersion: '>=1.28.0 <2.0.0'
 
 provider:
   name: aws
+  stackName: minecraft-server-controller
   runtime: go1.x
+  profile: mine
+  region: ap-northeast-1
+  stage: prod
+  environment:
+    INSTANCE_ID: ${file(env.yml):INSTANCE_ID}
+    FORCE_RUNNING: ${file(env.yml):FORCE_RUNNING}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ec2:StartInstances
+        - ec2:StopInstances
+      Resource: "*"
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:ListBucket"
@@ -56,18 +63,11 @@ package:
     - ./bin/**
 
 functions:
-  hello:
-    handler: bin/hello
+  minecraft-server-controller:
+    handler: bin/timer
     events:
-      - http:
-          path: hello
-          method: get
-  world:
-    handler: bin/world
-    events:
-      - http:
-          path: world
-          method: get
+      - schedule: rate(5 minutes)
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
