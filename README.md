@@ -1,4 +1,6 @@
-# Minecraft Server (myhome)
+# My Minecraft Server controller
+
+EC2 instance launch control
 
 ## provisioning: ansible
 
@@ -16,10 +18,38 @@ poetory run ansible-playbook -i ansible/hosts ansible/site.yml
 
 ## DevOps: lambda
 
-using [apex](https://apex.run/)
+using [Serverless Framework](https://serverless.com/)
 
-### timer: ec2 start/stop control
-WIP
+### setup deploy tool
 
-### buckup
-TODO:
+https://serverless.com/framework/docs/getting-started/
+
+
+```
+$ npm install -g serverless
+```
+
+Or, update the serverless cli from a previous version
+
+```
+$ npm update -g serverless
+```
+
+### prepare env file
+
+```
+$ cp env.yml{.sample,}
+```
+
+and edit `env.yml`
+
+### deploy
+
+```
+$ make deploy
+```
+
+if serverless deploy only is `sls deploy --vervose`
+
+# TODO
+- Consider national holiday in stop instance logic
