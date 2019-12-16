@@ -1,5 +1,0 @@
-{
-  "runtime": "golang",
-  "description": "go dependency on an external package",
-  "region": "ap-northeast-1"
-}
