@@ -13,8 +13,8 @@
 
 service: minecraft-server-controller
 # app and org for use with dashboard.serverless.com
-app: minecraft-server-controller
-org: sakuma
+# app: minecraft-server-controller
+# org: sakuma
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
