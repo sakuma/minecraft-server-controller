@@ -2,7 +2,7 @@
 
 build:
 	dep ensure -v
-	env GOOS=linux go build -ldflags="-s -w" -o bin/timer minecraft-server-controller/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/timer
 
 clean:
 	rm -rf ./bin ./vendor Gopkg.lock
