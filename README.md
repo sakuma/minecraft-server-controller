@@ -50,7 +50,7 @@ and edit `.envrc`
 $ make deploy
 ```
 
-if serverless deploy only is `sls deploy --vervose`
+if serverless deploy only is `sls deploy --aws-profile mine --vervose`
 
 # TODO
 - Consider national holiday in stop instance logic
