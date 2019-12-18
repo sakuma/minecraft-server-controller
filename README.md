@@ -35,13 +35,14 @@ Or, update the serverless cli from a previous version
 $ npm update -g serverless
 ```
 
-### prepare env file
+### prepare env file ( by local )
 
 ```
-$ cp env.yml{.sample,}
+$ cp {dot,}.envrc
+$ direnv allow
 ```
 
-and edit `env.yml`
+and edit `.envrc`
 
 ### deploy
 

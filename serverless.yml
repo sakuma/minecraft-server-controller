@@ -29,8 +29,8 @@ provider:
   region: ap-northeast-1
   stage: prod
   environment:
-    INSTANCE_ID: ${file(env.yml):INSTANCE_ID}
-    FORCE_RUNNING: ${file(env.yml):FORCE_RUNNING}
+    INSTANCE_ID: ${env:INSTANCE_ID}
+    FORCE_RUNNING: ${env:FORCE_RUNNING}
   iamRoleStatements:
     - Effect: Allow
       Action:
